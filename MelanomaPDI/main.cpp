@@ -4,7 +4,7 @@ using namespace cv;
 using namespace std;
 
 int main(int argc, char** argv) {
-
+	detLine();
 	Mat img = imread("images/7.JPG");
 	Mat cinza, histograma, binary, borrada, closed2,result,cortada;
 	if (!img.data) {
