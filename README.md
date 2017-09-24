@@ -1,6 +1,15 @@
 # Melanoma Project
 
-The goal of this project is to develop a computer vision system for the classification of skin tumors. [OpenCV](http://opencv.org/) is the standard library that is used for image processing with C++ and Python scripts, while the hardware platform is a Raspberry PI 3.
+The goal of this project is to develop a computer vision system for the classification of skin tumors. [OpenCV](http://opencv.org/) is the standard library that is used here for image processing with C++ and Python scripts, while the hardware platform is a Raspberry PI 3.
 
+## Installing OpenCV
+
+There are several tutorials about how to install OpenCV in a linux machine (our case) but to simplify this operation one can just follow [this commands](https://github.com/Bianorz/melanoma/blob/master/command_seq_inst_opencv3.txt).
+
+## Segmentation
+
+A typical melanoma image can be seen in fig 1
+
+![Melanoma](https://raw.githubusercontent.com/Bianorz/melanoma/master/MelanomaPDI/images/8.JPG  "Teste ")
 
 
