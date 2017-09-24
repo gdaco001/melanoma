@@ -36,7 +36,7 @@ Using the Opencv's function [findContours](http://docs.opencv.org/2.4/modules/im
   <br><br>
 </p>
 
-Finally we need to separate the chosen contour from the original image. One approach to do that is to create a mask with only white pixels inside the contour, make an [bitwise_and](http://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html#bitwise-and) between the mask and the original image and crop a bouding box around the bitwise result. After this steps we get a image with only the melanoma region.
+Finally we need to separate the chosen contour from the original image. One approach to do that is to create a mask with only white pixels inside the contour, make a [bitwise_and](http://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html#bitwise-and) between the mask and the original image and crop a bouding box around the bitwise result. After this steps we get a image with only the melanoma region.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Bianorz/melanoma/master/segImEx/Final_Result.png" width="300">
