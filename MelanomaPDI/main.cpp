@@ -23,12 +23,15 @@ using namespace std;
 int main(int argc, char** argv) {
 	//detLine();
 	Mat gray, binary, blurred,resultBeforeCrop,backup,resultAfterCrop;;
-	Mat img = imread("images/9.JPG");
+	Mat img = imread("images/8.JPG");
 	img.copyTo(backup);
 	if (!img.data) {
 		cout << "File not found" << endl;
 		return -1;
 	}
+	namedWindow("Original Image", WINDOW_NORMAL);
+	imshow("Original Image", img);
+	waitKey(0);
 	int rows = img.rows;
 	int cols = img.cols;
 	float area = 0;
@@ -67,9 +70,9 @@ int main(int argc, char** argv) {
 				int yb = moment.m01 / area;
 				float distance = sqrt(pow((xb - cols / 2), 2) + pow((yb - rows / 2), 2));
 				cout << "area = " << area << "distance = " << distance << endl;
-				circle(img, Point(cols / 2, rows / 2), 50, Scalar(255, 255, 0));
-				circle(img, Point(xb, yb), 50, Scalar(0, 255, 0));
-				drawContours(img, contours, index, Scalar(0, 255, 0), 2, 8,hierarchy, 0, Point());
+				circle(img, Point(cols / 2, rows / 2), 50, Scalar(255, 255, 255),5);
+				circle(img, Point(xb, yb), 50, Scalar(0, 255, 0),5);
+				drawContours(img, contours, index, Scalar(0, 255, 0), 5, 8,hierarchy, 0, Point());
 				namedWindow("Detected Points", WINDOW_NORMAL);
 				imshow("Detected Points", img);
 				waitKey(0);
