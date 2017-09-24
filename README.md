@@ -10,7 +10,7 @@ There are several tutorials about how to install OpenCV in a linux machine (our 
 
 A typical melanoma image can be seen in Fig. 1    
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Bianorz/melanoma/master/MelanomaPDI/images/8.JPG" width="300">
+  <img src="https://raw.githubusercontent.com/Bianorz/melanoma/master/segImEx/Original_Image.png" width="300">
   <b></b><br>
   Fig. 1: Melanoma
   <br><br>
