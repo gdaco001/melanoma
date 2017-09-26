@@ -4,6 +4,9 @@
  */
 #include "opencv2/opencv.hpp"
 #include "useful_dip_lib.h"
+#include <ctime>
+#include <stack>
+
 using namespace cv;
 using namespace std;
 
@@ -19,28 +22,41 @@ using namespace std;
  *resultAfterCrop: black image after bounding rectangle crop
  * */
 
+std::stack<clock_t> tictoc_stack;
+
+void tic() {
+    tictoc_stack.push(clock());
+}
+
+void toc() {
+    std::cout << "Time elapsed: "
+              << ((double)(clock() - tictoc_stack.top())) / CLOCKS_PER_SEC
+              << " sec"<<std::endl;
+    tictoc_stack.pop();
+}
 
 int main(int argc, char** argv) {
 	//detLine();
-	Mat gray, binary, blurred,resultBeforeCrop,backup,resultAfterCrop;;
+	//tic();
+	Mat gray, binary, blurred,resultBeforeCrop,backup,resultAfterCrop;
 	Mat img = imread("images/8.JPG");
 	img.copyTo(backup);
 	if (!img.data) {
 		cout << "File not found" << endl;
 		return -1;
 	}
-	namedWindow("Original Image", WINDOW_NORMAL);
-	imshow("Original Image", img);
-	waitKey(0);
+	//namedWindow("Original Image", WINDOW_NORMAL);
+	//imshow("Original Image", img);
+	//waitKey(0);
 	int rows = img.rows;
 	int cols = img.cols;
-	float area = 0;
+	int area = 0;
 	cvtColor(img, gray, COLOR_BGR2GRAY);
 	threshold(gray, binary, 0, 255, THRESH_BINARY_INV | CV_THRESH_OTSU);
 	medianBlur(binary, blurred, 3);
-	namedWindow("Image after segmentation + median filter", WINDOW_NORMAL);
-	imshow("Image after segmentation + median filter", blurred);
-	waitKey(0);
+	//namedWindow("Image after segmentation + median filter", WINDOW_NORMAL);
+	//imshow("Image after segmentation + median filter", blurred);
+	//waitKey(0);
 	/*
 	 *Contour detection using findContours function, details can be found here: http://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=findcontours#findcontours
 	 */
@@ -69,30 +85,36 @@ int main(int argc, char** argv) {
 				int xb = moment.m10 / area;
 				int yb = moment.m01 / area;
 				float distance = sqrt(pow((xb - cols / 2), 2) + pow((yb - rows / 2), 2));
-				cout << "area = " << area << "distance = " << distance << endl;
-				circle(img, Point(cols / 2, rows / 2), 50, Scalar(255, 255, 255),5);
-				circle(img, Point(xb, yb), 50, Scalar(0, 255, 0),5);
-				drawContours(img, contours, index, Scalar(0, 255, 0), 5, 8,hierarchy, 0, Point());
-				namedWindow("Detected Points", WINDOW_NORMAL);
-				imshow("Detected Points", img);
-				waitKey(0);
+				//cout << "area = " << area << "distance = " << distance << endl;
+				//circle(img, Point(cols / 2, rows / 2), 50, Scalar(255, 255, 255),5);
+				//circle(img, Point(xb, yb), 50, Scalar(0, 255, 0),5);
+				//drawContours(img, contours, index, Scalar(0, 255, 0), 5, 8,hierarchy, 0, Point());
+				//namedWindow("Detected Points", WINDOW_NORMAL);
+				//imshow("Detected Points", img);
+				//waitKey(0);
 				if (distance < 900) {
 					Rect boxContour(boundRect[index].tl(), boundRect[index].br());
 					Mat black(img.size(), CV_8UC3, Scalar(0, 0, 0));
 					drawContours(black, contours, index, Scalar(255, 255, 255), -1, 8,hierarchy, 0, Point());
-					namedWindow("White filled contour", WINDOW_NORMAL);
-					imshow("White filled contour", black);
+					//namedWindow("White filled contour", WINDOW_NORMAL);
+					//imshow("White filled contour", black);
 					bitwise_and(black,backup,resultBeforeCrop);
 					resultAfterCrop = resultBeforeCrop(boxContour);
+					vector<Vec3b> color;
+					Vec3b bgrPixel = resultAfterCrop.at<Vec3b>(247, 376);
+					color.push_back(bgrPixel);
+					unsigned char uVal = color[0][0];
+					cout << uVal << endl;
 					namedWindow("Final Result", WINDOW_NORMAL);
 					imshow("Final Result", resultAfterCrop);
 					waitKey(0);
+
+
 				}
 
 			}
 		}
 	}
-
-	//waitKey(0);
+	//toc();
 	return 0;
 }
