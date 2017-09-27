@@ -181,7 +181,7 @@ void histPlot(Mat hist, int histSize, int hist_w, int hist_h) {
 		line(histImage,
 				Point(bin_w * (i - 1), hist_h - cvRound(hist.at<float>(i - 1))),
 				Point(bin_w * (i), hist_h - cvRound(hist.at<float>(i))),
-				Scalar(255, 255, 255), 2, 8, 0);
+				Scalar(255, 255, 255), 7, 8, 0);
 	}
 	namedWindow("Histograma", CV_WINDOW_NORMAL);
 	imshow("Histograma", histImage);
